@@ -5,7 +5,8 @@ const MainPage = lazy(() => import("../../pages/MainPage/MainPage.jsx"));
 const Header = lazy(() => import("../Header/Header.jsx"));
 
 function App() {
-      <>
+  return (
+    <>
       <Header />
       <Suspense fallback={null}>
         <Routes>
@@ -13,7 +14,7 @@ function App() {
         </Routes>
       </Suspense>
     </>
-  
+  );
 }
 
-export default App
+export default App;

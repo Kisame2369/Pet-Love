@@ -1,0 +1,149 @@
+.zoneMain {
+    background-color: var(--dark-yellow);
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 18px 20px 50px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.profile{ 
+    margin: 0 12px 0 auto;
+}
+
+.burgerMenu{
+    background-color: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+}
+
+.headText{
+    margin-top: 60px;
+}
+
+.textOne{
+    color: #fff;
+    font-weight: 700; 
+    font-size: 50px;
+    line-height: 48px;
+    margin-bottom: 24px;
+    letter-spacing: -0.03em;
+}
+
+.care {
+    color: #FFFFFF66;
+}
+
+.textTwo {
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+}
+
+.modalMenu {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    width: 58%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+}
+
+.closeBtn {
+    position: absolute;
+    right: 32px;
+    top: 39px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 236px;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    border: 1px, solid, #26262626;
+    border-radius: 30px;
+    width: 119px;
+    height: 48px;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    color: #262626;
+}
+
+.link:hover,
+ link:focus {
+border-color: var(--dark-yellow);
+}
+
+.logOut,
+.linkLog, 
+.linkReg {
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius: 30px;
+    width: 178px;
+    height: 42px;
+    align-items: center;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+}
+
+.logOut,
+.linkReg {
+    background-color: var(--yellow);
+    color: var(--dark-yellow);
+}
+
+.logOut:hover,
+.logOut:focus,
+.linkReg:hover,
+.linkReg:focus {
+    background-color: #FBE7C1;
+}
+
+.linkLog{
+    background-color: var(--dark-yellow);
+    color: #fff;
+} 
+
+.linkLog:hover,
+.linkLog:focus{
+    background-color: #F9B020;
+}
+
+.logOut,
+.log {
+    margin-top: auto;
+    margin-bottom: 50px
+}
+
+.log {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

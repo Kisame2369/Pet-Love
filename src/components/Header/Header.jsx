@@ -1,11 +1,11 @@
 import css from "./Header.module.css"
-import { NavLink } from "react-router-dom";
-import { useState, useLocation } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 export default function Header() {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
-    const isLogin = false
+    const isLogin = true
     
     const isAuthPage = location.pathname === '/login' || location.pathname === '/registration';
     const isMainPage = location.pathname === '/';
@@ -15,36 +15,34 @@ export default function Header() {
     const closeMenu = () => setIsOpen(false);
 
     return (
+        <div className={css.header}>
+            <div className={`${css.zone} ${isMainPage ? css.zoneMain : ''}`}>
+                <nav className={css.navbar}>
 
-        <div className={`${css.header} ${isMainPage ? css.headerMain : ''}`}>
-            <nav className={css.navbar}>
-
-                <NavLink to="/">
-                    <svg className={`${css.logo} ${isMainPage ? css.logoMain : ''}`} width="76" height="20">
-                        <use href="/sprite.svg#icon-logo"></use>
-                    </svg>
-                </NavLink>
-
-                {isLogin && (
-                    <NavLink
-                        to="/profile"
-                        className={`${css.profileBtn} ${isMainPage ? css.profileBtnMain : ''}`}
-                    >
-                        <svg className={css.menu} width="40" height="40">
-                            <use href="/sprite.svg#icon-profile"></use>
+                    <NavLink to="/" onClick={closeMenu}>
+                        <svg className={css.logo} width="76" height="20">
+                            <use href={isMainPage ? "/sprite.svg#icon-logo-main" : "/sprite.svg#icon-logo"}></use>
                         </svg>
                     </NavLink>
-                )}
 
-                <button
-                    type="button"
-                    className={`${css.burgerMenu} ${isMainPage ? css.burgerMenuMain : ''}`}
-                    onClick={toggleMenu}
-                >
-                    <svg className={css.menu} width="32" height="32">
-                        <use href="/sprite.svg#icon-menu"></use>
-                    </svg>
-                </button>
+                    {isLogin && (
+                        <NavLink to="/profile" onClick={closeMenu}>
+                            <svg className={css.profile} width="40" height="40">
+                                <use href="/sprite.svg#icon-profile"></use>
+                            </svg>
+                        </NavLink>
+                    )}
+
+                    <button
+                        type="button"
+                        className={css.burgerMenu}
+                        onClick={toggleMenu}
+                    >
+                        <svg className={css.menu} width="32" height="32">
+                            <use href="/sprite.svg#icon-menu"></use>
+                        </svg>
+                    </button>
+                </nav>
 
                 {isMainPage && (
                     <div className={css.headText}>
@@ -57,7 +55,7 @@ export default function Header() {
                     </div>
                 )}
             
-            </nav>
+            </div>
 
 
             {isOpen && (
@@ -65,49 +63,51 @@ export default function Header() {
 
                     <button
                         type="button"
-                        className={isAuthPage ? `${css.closeBtn} ${css.authCloseBtn}` : css.closeBtn}
+                        className={css.closeBtn}
                         onClick={toggleMenu}
                     >
-                        <svg className={css.menu} width="32" height="32">
+                        <svg className={css.close} width="32" height="32">
                             <use href="/sprite.svg#icon-close"></use>
                         </svg>
                     </button>
 
-                    <NavLink
-                        to="/news"
-                        onClick={closeMenu}
-                        className={({ isActive }) =>
-                            isActive
-                                ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
-                                : `${css.link} ${isAuthPage ? css.authLink : ''}`
-                        }
-                    >
-                        News
-                    </NavLink>
+                    <div className={css.links}>
+                        <NavLink
+                            to="/news"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
+                                    : `${css.link} ${isAuthPage ? css.authLink : ''}`
+                            }
+                        >
+                            News
+                        </NavLink>
 
-                    <NavLink
-                        to="/notices"
-                        onClick={closeMenu}
-                        className={({ isActive }) =>
-                            isActive
-                                ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
-                                : `${css.link} ${isAuthPage ? css.authLink : ''}`
-                        }
-                    >
-                        Find pet
-                    </NavLink>
+                        <NavLink
+                            to="/notices"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
+                                    : `${css.link} ${isAuthPage ? css.authLink : ''}`
+                            }
+                        >
+                            Find pet
+                        </NavLink>
 
-                    <NavLink
-                        to="/friends"
-                        onClick={closeMenu}
-                        className={({ isActive }) =>
-                            isActive
-                                ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
-                                : `${css.link} ${isAuthPage ? css.authLink : ''}`
-                        }
-                    >
-                        Our friends
-                    </NavLink>
+                        <NavLink
+                            to="/friends"
+                            onClick={closeMenu}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
+                                    : `${css.link} ${isAuthPage ? css.authLink : ''}`
+                            }
+                        >
+                            Our friends
+                        </NavLink>
+                    </div>
 
                     {isLogin ? (
                         <button
@@ -117,14 +117,14 @@ export default function Header() {
                             Log Out
                         </button>
                     ) : (
-                        <div className={isAuthPage ? `${css.log} ${css.authLog}` : css.log}>
+                        <div className={css.log}>
                             <NavLink
                                 to="/login"
                                 onClick={closeMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
-                                        : `${css.link} ${isAuthPage ? css.authLink : ''}`
+                                        ? `${css.linkLog} ${css.active} ${isAuthPage ? css.authLink : ''}`
+                                        : `${css.linkLog} ${isAuthPage ? css.authLink : ''}`
                                 }
                             >
                                 LOG IN
@@ -135,8 +135,8 @@ export default function Header() {
                                 onClick={closeMenu}
                                 className={({ isActive }) =>
                                     isActive
-                                        ? `${css.link} ${css.active} ${isAuthPage ? css.authLink : ''}`
-                                        : `${css.link} ${isAuthPage ? css.authLink : ''}`
+                                        ? `${css.linkReg} ${css.active} ${isAuthPage ? css.authLink : ''}`
+                                        : `${css.linkReg} ${isAuthPage ? css.authLink : ''}`
                                 }
                             >
                                 REGISTRATION
