@@ -5,30 +5,41 @@
     padding: 18px 20px 50px;
 }
 
+.zone {
+    margin-top: 28px;
+}
+
 .navbar {
     display: flex;
     align-items: center;
 }
 
-.profile{ 
-    margin: 0 12px 0 auto;
+.wrap {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
-.burgerMenu{
+.profile {
+    margin-right: 12px;
+}
+
+.burgerMenu {
     background-color: transparent;
     border: none;
     width: 32px;
     height: 32px;
-    margin-left: auto;
+    padding: 0;
+    cursor: pointer;
 }
 
-.headText{
+.headText {
     margin-top: 60px;
 }
 
-.textOne{
+.textOne {
     color: #fff;
-    font-weight: 700; 
+    font-weight: 700;
     font-size: 50px;
     line-height: 48px;
     margin-bottom: 24px;
@@ -47,6 +58,20 @@
     letter-spacing: -0.02em;
 }
 
+.menu,
+.close {
+    stroke: #262626;
+    transition: stroke 0.3s ease;
+}
+
+.zoneMain .menu {
+    stroke: #fff;
+}
+
+.modalMenu .close {
+    stroke: #fff;
+}
+
 .modalMenu {
     position: fixed;
     z-index: 999;
@@ -57,7 +82,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: var(--dark-yellow);
+    transform: translateX(100%);
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+    }
 }
 
 .closeBtn {
@@ -68,9 +101,11 @@
     height: 32px;
     background: transparent;
     border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
-.links{
+.links {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -80,37 +115,46 @@
 .link {
     display: flex;
     justify-content: center;
-    border: 1px, solid, #26262626;
+    align-items: center;
+    border: 1px solid #FFFFFF26;
     border-radius: 30px;
     width: 119px;
     height: 48px;
-    align-items: center;
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: -0.03em;
-    color: #262626;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .link:hover,
- link:focus {
-border-color: var(--dark-yellow);
+.link:focus {
+    border-color: #FFFFFF80;
+}
+
+.link.active {
+    border-color: #FFFFFF80;
 }
 
 .logOut,
-.linkLog, 
+.linkLog,
 .linkReg {
     display: flex;
     justify-content: center;
+    align-items: center;
     border: none;
     border-radius: 30px;
     width: 178px;
     height: 42px;
-    align-items: center;
     font-weight: 700;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: -0.03em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .logOut,
@@ -126,24 +170,70 @@ border-color: var(--dark-yellow);
     background-color: #FBE7C1;
 }
 
-.linkLog{
-    background-color: var(--dark-yellow);
+.linkLog {
+    background-color: transparent;
     color: #fff;
-} 
+    border: 1px solid #FFFFFF80;
+}
 
 .linkLog:hover,
-.linkLog:focus{
-    background-color: #F9B020;
+.linkLog:focus {
+    background-color: var(--yellow);
+    color: var(--dark-yellow);
 }
 
 .logOut,
 .log {
     margin-top: auto;
-    margin-bottom: 50px
+    margin-bottom: 50px;
 }
 
 .log {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.mainPageModal {
+    background-color: #fff;
+}
+
+.mainPageModal .close {
+    stroke: #262626;
+}
+
+.mainPageModal .link {
+    color: #262626;
+    border-color: #26262626;
+}
+
+.mainPageModal .link:hover,
+.mainPageModal .link:focus {
+    border-color: var(--dark-yellow);
+}
+
+.mainPageModal .link.active {
+    background-color: var(--yellow);
+    border-color: var(--yellow);
+}
+
+.mainPageModal .logOut {
+    background-color: var(--yellow);
+    color: var(--dark-yellow);
+}
+
+.mainPageModal .logOut:hover,
+.mainPageModal .logOut:focus {
+    background-color: #FBE7C1;
+}
+
+.mainPageModal .linkLog {
+    background-color: var(--dark-yellow);
+    color: #fff;
+    border: none;
+}
+
+.mainPageModal .linkLog:hover,
+.mainPageModal .linkLog:focus {
+    background-color: #F9B020;
 }
