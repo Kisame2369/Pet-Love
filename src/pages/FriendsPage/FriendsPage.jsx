@@ -1,24 +1,31 @@
-import css from '../NewsPage/NewsPage.module.css';
+import { useEffect } from 'react';
+import css from './FriendsPage.module.css';
 import Title from '../../components/Title/Title.jsx';
-import FriendsItem from '../../components/NewsItem/NewsItem.jsx';
-import { useSelector } from 'react-redux';
+import FriendsItem from '../../components/FriendsItem/FriendsItem.jsx';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectFriends } from '../../redux/friends/selector.js';
-export default function FriendsPage() {
+import { fetchFriends } from '../../redux/friends/operations.js';
 
+export default function FriendsPage() {
+    const dispatch = useDispatch();
     const friends = useSelector(selectFriends);
 
+    useEffect(() => {
+        dispatch(fetchFriends());
+    }, [dispatch]);
+
     return (
-            <>
+        <>
             <Title title="Our Friends" />    
             <div className={css.friendsPage}>
                 <ul className={css.friendsList}>
                     {friends.map((item) => (
-                        <li key={item.id} className={css.friendsListItem}>
+                        <li key={item._id} className={css.friendsListItem}>
                             <FriendsItem item={item} />
                         </li>
                     ))}
                 </ul>
-                </div>
-            </>
-        );
+            </div>
+        </>
+    );
 }

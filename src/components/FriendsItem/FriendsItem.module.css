@@ -1,0 +1,92 @@
+.friendsCard {
+    height: 184px;
+    background-color: var(--white);
+    border-radius: 15px;
+    display: flex;
+    gap: 14px;
+    position: relative;
+}
+
+.friendsImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+.time {
+    position: absolute;
+}
+
+.friendsText {
+    display: flex;
+    gap: 4px;
+    align-items: baseline;
+    min-width: 0;
+    /* Важно для работы text-overflow */
+}
+
+.friendsTitle {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    color: var(--black);
+    margin: 40px 0 14px 0;
+    display: block;
+}
+
+.miniTitle,
+.text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    color: #26262680;
+}
+
+.miniTitle {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.text {
+    color: var(--black);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.textWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.time {
+    display: flex;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    color: var(--dark-yellow);
+    background-color: var(--yellow);
+    border-radius: 30px;
+    height: 32px;
+    padding: 8px;
+    top: 12px;
+    right: 12px;
+    gap: 4px
+}
