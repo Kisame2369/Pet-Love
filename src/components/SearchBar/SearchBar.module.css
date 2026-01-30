@@ -1,0 +1,45 @@
+.searchInput {
+    background-color: transparent;
+    border: 1px solid #26262626;
+    border-radius: 30px;
+    height: 42px;
+    width: 100%;
+    padding: 12px 56px 12px 12px;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 24px;
+    margin-top: 20px;
+}
+
+.searchInput::placeholder {
+    color: #26262680;
+    opacity: 1;
+}
+
+.searchInput:focus{
+    border-color: var(--dark-yellow);
+}
+
+.buttons {
+    display: flex;
+    position: absolute;
+    gap: 4px;
+    top: 32px;
+    right: 12px;
+}
+
+.button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    fill: transparent;
+    stroke: var(--black);
+}
+
+.searchBar{
+    position: relative;
+}

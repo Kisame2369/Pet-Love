@@ -17,6 +17,10 @@ const newsSlice = createSlice({
             state.page = 1;
             state.totalPages = 0;
         },
+        setNewsPage: (state, action) => {
+            state.page = action.payload;
+        },
+
     },
     extraReducers: (builder) => {
         builder
@@ -26,7 +30,11 @@ const newsSlice = createSlice({
             })
             .addCase(fetchNews.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.items = action.payload.results;
+                const uniqueItems = action.payload.results.filter(
+                    (item, index, self) =>
+                        index === self.findIndex(i => i.id === item.id)
+                );
+                state.items = uniqueItems;
                 state.page = action.payload.page;
                 state.perPage = action.payload.perPage;
                 state.totalPages = action.payload.totalPages;
@@ -38,5 +46,5 @@ const newsSlice = createSlice({
     },
 });
 
-export const { clearNews } = newsSlice.actions;
+export const { clearNews, setNewsPage } = newsSlice.actions;
 export default newsSlice.reducer;
