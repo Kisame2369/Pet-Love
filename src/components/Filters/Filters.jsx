@@ -4,7 +4,7 @@ import Select, { components } from 'react-select';
 import { selectCategories, selectSex, selectSpecies } from '../../redux/notices/selector';
 import { selectCities } from '../../redux/cities/selector';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { selectStyles, selectStylesType, selectStylesLocation } from './Styles';
 import { fetchCities } from '../../redux/cities/operations';
 
@@ -30,12 +30,12 @@ const DropdownIndicator = (props) => {
 
 const formatOptionLabel = ({ label }, { inputValue }) => {
     if (!inputValue) return label;
-    
+
     const parts = label.split(new RegExp(`(${inputValue})`, 'gi'));
-    
+
     return (
         <span>
-            {parts.map((part, index) => 
+            {parts.map((part, index) =>
                 part.toLowerCase() === inputValue.toLowerCase() ? (
                     <span key={index} style={{ color: 'var(--black)' }}>{part}</span>
                 ) : (
@@ -43,17 +43,17 @@ const formatOptionLabel = ({ label }, { inputValue }) => {
                 )
             )}
         </span>
-    );q
+    );
 };
 
 export default function Filters({ onSearch, onFilterChange }) {
     const dispatch = useDispatch();
-    
+
     const categories = useSelector(selectCategories);
     const genders = useSelector(selectSex);
     const types = useSelector(selectSpecies);
     const cities = useSelector(selectCities);
-    
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedGender, setSelectedGender] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
@@ -61,11 +61,58 @@ export default function Filters({ onSearch, onFilterChange }) {
     const [locationInputValue, setLocationInputValue] = useState('');
     const [sortBy, setSortBy] = useState('');
 
+    const cityTimeoutRef = useRef(null);
+
     useEffect(() => {
-        if (locationInputValue.length >= 2) {
-            dispatch(fetchCities({ keyword: locationInputValue }));
+        if (cityTimeoutRef.current) {
+            clearTimeout(cityTimeoutRef.current);
         }
+
+        if (locationInputValue.length >= 2) {
+            cityTimeoutRef.current = setTimeout(() => {
+                dispatch(fetchCities({ keyword: locationInputValue }));
+            }, 300);
+        }
+
+        return () => {
+            if (cityTimeoutRef.current) {
+                clearTimeout(cityTimeoutRef.current);
+            }
+        };
     }, [locationInputValue, dispatch]);
+
+    const getVal = (option) => option?.value !== 'all' ? option?.value : null;
+
+    const notifyFilterChange = (category, sex, species, locationId, sort) => {
+        onFilterChange?.({
+            category: getVal(category),
+            sex: getVal(sex),
+            species: getVal(species),
+            locationId: locationId?.value ?? null,
+            sortBy: sort
+        });
+    };
+
+    const handleCategoryChange = (option) => {
+        setSelectedCategory(option);
+        notifyFilterChange(option, selectedGender, selectedType, selectedLocation, sortBy);
+    };
+
+    const handleGenderChange = (option) => {
+        setSelectedGender(option);
+        notifyFilterChange(selectedCategory, option, selectedType, selectedLocation, sortBy);
+    };
+
+    const handleTypeChange = (option) => {
+        setSelectedType(option);
+        notifyFilterChange(selectedCategory, selectedGender, option, selectedLocation, sortBy);
+    };
+
+    const handleSortChange = (e) => {
+        const val = e.target.value;
+        setSortBy(val);
+        notifyFilterChange(selectedCategory, selectedGender, selectedType, selectedLocation, val);
+    };
 
     const categoriesOptions = [
         { value: 'all', label: 'Show All' },
@@ -96,40 +143,21 @@ export default function Filters({ onSearch, onFilterChange }) {
         label: `${city.cityEn}, ${city.stateEn}`
     }));
 
-    const handleLocationMenuOpen = () => {
-        if (locationInputValue.trim() && locationOptions.length > 0) {
-            return;
-        }
-    };
-
-    const handleSortChange = (value) => {
-        setSortBy(value);
-        if (onFilterChange) {
-            onFilterChange({
-                category: selectedCategory?.value !== 'all' ? selectedCategory?.value : null,
-                sex: selectedGender?.value !== 'all' ? selectedGender?.value : null,
-                species: selectedType?.value !== 'all' ? selectedType?.value : null,
-                sortBy: value
-            });
-        }
+    const handleLocationChange = (option) => {
+        setSelectedLocation(option);
+        if (!option) setLocationInputValue('');
+        notifyFilterChange(selectedCategory, selectedGender, selectedType, option, sortBy);
     };
 
     const handleReset = () => {
         setSelectedCategory(null);
         setSelectedGender(null);
         setSelectedType(null);
+        setSelectedLocation(null);
+        setLocationInputValue('');
         setSortBy('');
-        if (onSearch) {
-            onSearch('');
-        }
-        if (onFilterChange) {
-            onFilterChange({
-                category: null,
-                sex: null,
-                species: null,
-                sortBy: ''
-            });
-        }
+        onSearch?.('');
+        onFilterChange?.({ category: null, sex: null, species: null, locationId: null, sortBy: '' });
     };
 
     return (
@@ -138,31 +166,30 @@ export default function Filters({ onSearch, onFilterChange }) {
             <Select
                 options={categoriesOptions}
                 value={selectedCategory}
-                onChange={setSelectedCategory}
+                onChange={handleCategoryChange}
                 styles={selectStyles}
                 placeholder="Category"
             />
             <Select
                 options={sexOptions}
                 value={selectedGender}
-                onChange={setSelectedGender}
+                onChange={handleGenderChange}
                 styles={selectStyles}
                 placeholder="By gender"
             />
             <Select
                 options={speciesOptions}
                 value={selectedType}
-                onChange={setSelectedType}
+                onChange={handleTypeChange}
                 styles={selectStylesType}
                 placeholder="By type"
             />
             <Select
                 options={locationOptions}
                 value={selectedLocation}
-                onChange={setSelectedLocation}
+                onChange={handleLocationChange}
                 onInputChange={setLocationInputValue}
                 inputValue={locationInputValue}
-                onMenuOpen={handleLocationMenuOpen}
                 styles={selectStylesLocation}
                 placeholder="Location"
                 noOptionsMessage={() => locationInputValue.length < 2 ? 'Type to search...' : 'No locations found'}
@@ -181,7 +208,7 @@ export default function Filters({ onSearch, onFilterChange }) {
                         name="sort"
                         value="cheap"
                         checked={sortBy === 'cheap'}
-                        onChange={(e) => handleSortChange(e.target.value)}
+                        onChange={handleSortChange}
                         className={css.radioInput}
                     />
                     <span className={css.radioText}>cheap</span>
@@ -193,7 +220,7 @@ export default function Filters({ onSearch, onFilterChange }) {
                         name="sort"
                         value="expensive"
                         checked={sortBy === 'expensive'}
-                        onChange={(e) => handleSortChange(e.target.value)}
+                        onChange={handleSortChange}
                         className={css.radioInput}
                     />
                     <span className={css.radioText}>expensive</span>
@@ -205,7 +232,7 @@ export default function Filters({ onSearch, onFilterChange }) {
                         name="sort"
                         value="popular"
                         checked={sortBy === 'popular'}
-                        onChange={(e) => handleSortChange(e.target.value)}
+                        onChange={handleSortChange}
                         className={css.radioInput}
                     />
                     <span className={css.radioText}>popular</span>
@@ -217,15 +244,15 @@ export default function Filters({ onSearch, onFilterChange }) {
                         name="sort"
                         value="unpopular"
                         checked={sortBy === 'unpopular'}
-                        onChange={(e) => handleSortChange(e.target.value)}
+                        onChange={handleSortChange}
                         className={css.radioInput}
                     />
                     <span className={css.radioText}>unpopular</span>
                 </label>
             </div>
 
-            <button 
-                type="button" 
+            <button
+                type="button"
                 onClick={handleReset}
                 className={css.resetButton}
             >
