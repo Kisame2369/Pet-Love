@@ -2,22 +2,22 @@ import Header from "../../components/Header/Header";
 import heroBg1x from "../../assets/images/home-hero@1x.webp";
 import heroBg2x from "../../assets/images/home-hero@2x.webp";
 import styles from "./HomePage.module.css";
+import { useSelector } from "react-redux";
+
 
 export default function HomePage() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   return (
     <div className={styles.pageContainer}>
       <main className={styles.page}>
         <section className={styles.heroCard}>
-          <Header variant="dark" />
+          <Header variant="dark" authenticated={isAuthenticated} />
           <div className={styles.heroText}>
             <h1 className={styles.title}>
               Take good <span className={styles.titleAccent}>care</span> of your
               small pets
             </h1>
-            <p className={styles.description}>
-              Choosing a pet for your home is a choice that is meant to enrich
-              your life with immeasurable joy and tenderness.
-            </p>
           </div>
         </section>
 
