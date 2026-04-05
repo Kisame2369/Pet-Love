@@ -4,7 +4,7 @@ import Select, { components } from 'react-select';
 import { selectCategories, selectSex, selectSpecies } from '../../redux/notices/selector';
 import { selectCities } from '../../redux/cities/selector';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { selectStyles, selectStylesType, selectStylesLocation } from './Styles';
 import { fetchCities } from '../../redux/cities/operations';
 
@@ -30,12 +30,12 @@ const DropdownIndicator = (props) => {
 
 const formatOptionLabel = ({ label }, { inputValue }) => {
     if (!inputValue) return label;
-    
+
     const parts = label.split(new RegExp(`(${inputValue})`, 'gi'));
-    
+
     return (
         <span>
-            {parts.map((part, index) => 
+            {parts.map((part, index) =>
                 part.toLowerCase() === inputValue.toLowerCase() ? (
                     <span key={index} style={{ color: 'var(--black)' }}>{part}</span>
                 ) : (
@@ -44,16 +44,17 @@ const formatOptionLabel = ({ label }, { inputValue }) => {
             )}
         </span>
     );
+
 };
 
 export default function Filters({ onSearch, onFilterChange }) {
     const dispatch = useDispatch();
-    
+
     const categories = useSelector(selectCategories);
     const genders = useSelector(selectSex);
     const types = useSelector(selectSpecies);
     const cities = useSelector(selectCities);
-    
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedGender, setSelectedGender] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
@@ -61,10 +62,24 @@ export default function Filters({ onSearch, onFilterChange }) {
     const [locationInputValue, setLocationInputValue] = useState('');
     const [sortBy, setSortBy] = useState('');
 
+    const cityTimeoutRef = useRef(null);
+
     useEffect(() => {
-        if (locationInputValue.length >= 2) {
-            dispatch(fetchCities({ keyword: locationInputValue }));
+        if (cityTimeoutRef.current) {
+            clearTimeout(cityTimeoutRef.current);
         }
+
+        if (locationInputValue.length >= 2) {
+            cityTimeoutRef.current = setTimeout(() => {
+                dispatch(fetchCities({ keyword: locationInputValue }));
+            }, 300);
+        }
+
+        return () => {
+            if (cityTimeoutRef.current) {
+                clearTimeout(cityTimeoutRef.current);
+            }
+        };
     }, [locationInputValue, dispatch]);
 
     useEffect(() => {
@@ -120,6 +135,8 @@ export default function Filters({ onSearch, onFilterChange }) {
         setSelectedType(null);
         setSelectedLocation(null);
         setLocationInputValue('');
+        setSelectedLocation(null);
+        setLocationInputValue('');
         setSortBy('');
         
         if (onSearch) {
@@ -150,7 +167,7 @@ export default function Filters({ onSearch, onFilterChange }) {
             <Select
                 options={speciesOptions}
                 value={selectedType}
-                onChange={setSelectedType}
+                onChange={handleTypeChange}
                 styles={selectStylesType}
                 placeholder="By type"
             />
@@ -159,10 +176,9 @@ export default function Filters({ onSearch, onFilterChange }) {
                 className={css.locationSelect}
                 options={locationOptions}
                 value={selectedLocation}
-                onChange={setSelectedLocation}
+                onChange={handleLocationChange}
                 onInputChange={setLocationInputValue}
                 inputValue={locationInputValue}
-                onMenuOpen={handleLocationMenuOpen}
                 styles={selectStylesLocation}
                 placeholder="Location"
                 noOptionsMessage={() => locationInputValue.length < 2 ? 'Type to search...' : 'No locations found'}
