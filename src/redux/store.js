@@ -1,6 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./rootReducer.js";
+import newsReducer from "./news/newsSlice";
+import noticesReducer from "./notices/noticesSlice";
+import friendsReducer from "./friends/friendsSlice";
+import authReducer from "./auth/authSlice";
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    news: newsReducer,
+    notices: noticesReducer,
+    friends: friendsReducer,
+    auth: authReducer,
+  },
 });

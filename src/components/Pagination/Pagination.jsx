@@ -1,88 +1,86 @@
-import css from './Pagination.module.css';
+import SliderOne from "../../assets/icons/slider-1.svg?react";
+import SliderTwo from "../../assets/icons/slider-2.svg?react";
+import styles from "./Pagination.module.css";
 
-export default function Pagination({ page, totalPages, setPage }) {
-    if (totalPages <= 1) return null;
+export default function Pagination({ page, totalPages, onPageChange }) {
+  const getPages = () => {
+    const pages = [];
 
-    const isFirst = page === 1;
-    const isLast = page === totalPages;
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+      return pages;
+    }
 
-    return (
-        <div className={css.pagination}>
-            <div className={css.navigation}>
-                <button
-                    className={css[!isFirst ? 'active' : 'button']}
-                    type="button"
-                    disabled={isFirst}
-                    onClick={() => setPage(1)}
-                >
-                    <svg className={css.iconLeft} width="20" height="20">
-                        <use xlinkHref="/sprite.svg#icon-arrow" />
-                    </svg>
-                </button>
+    pages.push(1);
+    if (page > 3) pages.push("...");
+    for (
+      let i = Math.max(2, page - 1);
+      i <= Math.min(totalPages - 1, page + 1);
+      i++
+    ) {
+      pages.push(i);
+    }
+    if (page < totalPages - 2) pages.push("...");
+    pages.push(totalPages);
 
-                <button
-                    className={css[!isFirst ? 'active' : 'button']}
-                    type="button"
-                    disabled={isFirst}
-                    onClick={() => setPage(page - 1)}
-                >
-                    <svg className={css.iconLeft} width="20" height="20">
-                        <use xlinkHref="/sprite.svg#icon-arrow" />
-                    </svg>
-                </button>
-            </div>
+    return pages;
+  };
 
-            <div className={css.buttonNumbers}>
+  const pages = getPages();
 
-                { totalPages < page + 2 && (
-                    <span className={css.button}>...</span>
-                )}
+  return (
+    <div className={styles.pagination}>
+      <button
+        className={styles.btn}
+        onClick={() => onPageChange(1)}
+        disabled={page === 1}
+        aria-label="First page"
+      >
+        <SliderTwo className={styles.iconFlip} width="16" height="16" />
+      </button>
 
-                <button
-                    className={css[!isLast ? 'numberActive' : 'button']}
-                    type="button"
-                >
-                    {page}
-                </button>
+      <button
+        className={styles.btn}
+        onClick={() => onPageChange(page - 1)}
+        disabled={page === 1}
+        aria-label="Previous page"
+      >
+        <SliderOne className={styles.iconFlip} width="16" height="16" />
+      </button>
 
-                {page + 1 <= totalPages + 1 && (
-                    <button
-                        className={css[isLast ? 'numberActive' : 'button']}
-                        type="button"
-                        onClick={() => setPage(page + 1)}
-                    >
-                        {page + 1}
-                    </button>
-                )}
+      {pages.map((p, i) =>
+        p === "..." ? (
+          <span key={`dots-${i}`} className={styles.dots}>
+            ...
+          </span>
+        ) : (
+          <button
+            key={p}
+            className={`${styles.btn} ${p === page ? styles.active : ""}`}
+            onClick={() => onPageChange(p)}
+          >
+            {p}
+          </button>
+        ),
+      )}
 
-                {page + 2 <= totalPages && (
-                    <span className={css.button}>...</span>
-                )}
-            </div>
+      <button
+        className={`${styles.btn} ${styles.btnFlip}`}
+        onClick={() => onPageChange(page + 1)}
+        disabled={page === totalPages}
+        aria-label="Next page"
+      >
+        <SliderOne width="16" height="16" />
+      </button>
 
-            <div className={css.navigation}>
-                <button
-                    className={css[!isLast ? 'active' : 'button']}
-                    type="button"
-                    disabled={isLast}
-                    onClick={() => setPage(page + 1)}
-                >
-                    <svg width="20" height="20">
-                        <use xlinkHref="/sprite.svg#icon-arrow" />
-                    </svg>
-                </button>
-
-                <button
-                    className={css[!isLast ? 'active' : 'button']}
-                    type="button"
-                    disabled={isLast}
-                    onClick={() => setPage(totalPages)}
-                >
-                     <svg width="20" height="20">
-                        <use xlinkHref="/sprite.svg#icon-arrow" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    );
+      <button
+        className={`${styles.btn} ${styles.btnFlip}`}
+        onClick={() => onPageChange(totalPages)}
+        disabled={page === totalPages}
+        aria-label="Last page"
+      >
+        <SliderTwo width="16" height="16" />
+      </button>
+    </div>
+  );
 }

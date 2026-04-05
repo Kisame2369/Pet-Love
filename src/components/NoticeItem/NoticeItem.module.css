@@ -1,0 +1,122 @@
+.noticeItem{
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 16px;
+}
+
+.image{
+    height: 178px;
+    border-radius: 16px;
+    width: 287px;
+    object-fit: cover;
+    margin-bottom: 24px;
+}
+
+.top {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-weight: 700; 
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0em;
+    color: var(--black);
+}
+
+.popularity {
+    display: flex;
+    gap: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0em;
+    vertical-align: middle;
+    color: var(--black);
+    margin-left: auto;
+}
+
+.info {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.category,
+.categoryText {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+    color: #26262680;
+}
+
+.categoryText {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--black);
+}
+
+.descr {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color:var(--black);
+}
+
+.price {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0em;
+    vertical-align: middle;
+    color: var(--black);
+    margin-bottom: 12px;
+}
+
+.buttons{
+    display: flex;
+}
+
+.buttonLearn {
+    height: 42px;
+    width: 231px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-yellow);
+    border-radius: 30px;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    transition: background-color 0.3s ease;
+}
+
+.buttonLearn:hover,
+.buttonLearn:focus {
+    background-color: #F9B020;
+}
+
+.favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 50%;
+    height: 46px;
+    width: 46px;
+    transition: background-color 0.3s ease;
+    margin-left: auto;
+}
+
+.favorite:hover,
+.favorite:focus {
+    background-color: #FBE7C1;
+}

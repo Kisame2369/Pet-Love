@@ -1,84 +1,83 @@
-import css from './FriendsItem.module.css';
+import styles from "./FriendsItem.module.css";
 
-export default function FriendsItem({ item }) {
-    const hasEmail = item.email;
-    const hasPhone = item.phone;
-    const hasAddress = item.address;
-    const hasWorkTime = item.workDays?.[0]?.from && item.workDays?.[0]?.to;
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-    const getContactText = (type) => {
-        if (!hasEmail && !hasPhone && !hasAddress) {
-            return "website only";
-        }
+export default function FriendsItem({ item, index }) {
+  const { title, url, addressUrl, imageUrl, address, workDays, phone, email } =
+    item;
+  const today = new Date().getDay();
+  const todayIndex = today === 0 ? 6 : today - 1;
+  const todaySchedule = workDays?.[todayIndex];
 
-        if (type === 'email') {
-            if (!hasEmail && hasPhone) return "phone only";
-            if (!hasEmail) return "website only";
-            return item.email;
-        }
-
-        if (type === 'phone') {
-            if (!hasPhone && hasEmail) return "email only";
-            if (!hasPhone) return "website only";
-            return item.phone;
-        }
-
-        if (type === 'address') {
-            if (!hasAddress) return "website only";
-            return item.address;
-        }
-    };
-
-    const emailText = getContactText('email');
-    const phoneText = getContactText('phone');
-    const addressText = getContactText('address');
-
-    return (
-        <div className={css.friendsCard}>
-            <img className={css.friendsImage} src={item.imageUrl} alt={item.title} />
-            <div className={css.wrap}>
-                <a href={item.url} className={css.friendsTitle}>{item.title}</a>
-                <div className={css.textWrap}>
-                    <div className={css.friendsText}>
-                        <p className={css.miniTitle}>Email:</p>
-                        {hasEmail ? (
-                            <a href={`mailto:${item.email}`} className={css.text}>{emailText}</a>
-                        ) : (
-                            <span className={css.text}>{emailText}</span>
-                        )}
-                    </div>
-
-                    <div className={css.friendsText}>
-                        <p className={css.miniTitle}>Address:</p>
-                        {hasAddress ? (
-                            <a href={item.addressUrl} className={css.text}>{addressText}</a>
-                        ) : (
-                            <span className={css.text}>{addressText}</span>
-                        )}
-                    </div>
-
-                    <div className={css.friendsText}>
-                        <p className={css.miniTitle}>Phone:</p>
-                        {hasPhone ? (
-                            <a href={`tel:${item.phone}`} className={css.text}>{phoneText}</a>
-                        ) : (
-                            <span className={css.text}>{phoneText}</span>
-                        )}
-                    </div>
-                </div>
+  return (
+    <li className={styles.card} style={{ animationDelay: `${index * 0.1}s` }}>
+      <div className={styles.top}>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.logoWrap}
+        >
+          <img src={imageUrl} alt={title} className={styles.logo} />
+        </a>
+        <div className={styles.headerContent}>
+          <div className={styles.titleAndBadge}>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.title}
+            >
+              {title}
+            </a>
+            <div className={styles.scheduleBadge}>
+              {todaySchedule && todaySchedule.isOpen
+                ? `${todaySchedule.from} - ${todaySchedule.to}`
+                : "Day and night"}
             </div>
-
-            <div className={css.time}>
-                {hasWorkTime ? (
-                    <>
-                        <p className={css.from}>{item.workDays[0].from}</p>
-                        <span>-</span>
-                        <p className={css.to}>{item.workDays[0].to}</p>
-                    </>
-                ) : (
-                    <p>Day and night</p>
-                )}
-            </div>
+          </div>
         </div>
-    );
+      </div>
+
+      <div className={styles.details}>
+        <div className={styles.detailItem}>
+          <span className={styles.label}>Email:</span>
+          {email ? (
+            <a href={`mailto:${email}`} className={styles.link}>
+              {email}
+            </a>
+          ) : (
+            <span className={styles.textOnly}></span>
+          )}
+        </div>
+
+        <div className={styles.detailItem}>
+          <span className={styles.label}>Address:</span>
+          {address ? (
+            <a
+              href={addressUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              {address}
+            </a>
+          ) : (
+            <span className={styles.textOnly}></span>
+          )}
+        </div>
+
+        <div className={styles.detailItem}>
+          <span className={styles.label}>Phone:</span>
+          {phone ? (
+            <a href={`tel:${phone}`} className={styles.link}>
+              {phone}
+            </a>
+          ) : (
+            <span className={styles.textOnly}></span>
+          )}
+        </div>
+      </div>
+    </li>
+  );
 }

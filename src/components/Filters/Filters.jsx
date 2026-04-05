@@ -43,7 +43,7 @@ const formatOptionLabel = ({ label }, { inputValue }) => {
                 )
             )}
         </span>
-    );q
+    );
 };
 
 export default function Filters({ onSearch, onFilterChange }) {
@@ -66,6 +66,18 @@ export default function Filters({ onSearch, onFilterChange }) {
             dispatch(fetchCities({ keyword: locationInputValue }));
         }
     }, [locationInputValue, dispatch]);
+
+    useEffect(() => {
+    if (onFilterChange) {
+        onFilterChange({
+            category: selectedCategory?.value !== 'all' ? selectedCategory?.value : null,
+            sex: selectedGender?.value !== 'all' ? selectedGender?.value : null,
+            species: selectedType?.value !== 'all' ? selectedType?.value : null,
+            locationId: selectedLocation?.value || null,
+            sortBy: sortBy || null
+        });
+    }
+    }, [selectedCategory, selectedGender, selectedType, selectedLocation, sortBy, onFilterChange]);
 
     const categoriesOptions = [
         { value: 'all', label: 'Show All' },
@@ -102,53 +114,39 @@ export default function Filters({ onSearch, onFilterChange }) {
         }
     };
 
-    const handleSortChange = (value) => {
-        setSortBy(value);
-        if (onFilterChange) {
-            onFilterChange({
-                category: selectedCategory?.value !== 'all' ? selectedCategory?.value : null,
-                sex: selectedGender?.value !== 'all' ? selectedGender?.value : null,
-                species: selectedType?.value !== 'all' ? selectedType?.value : null,
-                sortBy: value
-            });
-        }
-    };
-
     const handleReset = () => {
         setSelectedCategory(null);
         setSelectedGender(null);
         setSelectedType(null);
+        setSelectedLocation(null);
+        setLocationInputValue('');
         setSortBy('');
+        
         if (onSearch) {
             onSearch('');
-        }
-        if (onFilterChange) {
-            onFilterChange({
-                category: null,
-                sex: null,
-                species: null,
-                sortBy: ''
-            });
         }
     };
 
     return (
         <div className={css.filters}>
             <SearchBar onSearch={onSearch} />
-            <Select
-                options={categoriesOptions}
-                value={selectedCategory}
-                onChange={setSelectedCategory}
-                styles={selectStyles}
-                placeholder="Category"
-            />
-            <Select
-                options={sexOptions}
-                value={selectedGender}
-                onChange={setSelectedGender}
-                styles={selectStyles}
-                placeholder="By gender"
-            />
+            <div className={css.select}>
+                <Select
+                    options={categoriesOptions}
+                    value={selectedCategory}
+                    onChange={setSelectedCategory}
+                    styles={selectStyles}
+                    placeholder="Category"
+                />
+            
+                <Select
+                    options={sexOptions}
+                    value={selectedGender}
+                    onChange={setSelectedGender}
+                    styles={selectStyles}
+                    placeholder="By gender"
+                />
+            </div>
             <Select
                 options={speciesOptions}
                 value={selectedType}
@@ -156,7 +154,9 @@ export default function Filters({ onSearch, onFilterChange }) {
                 styles={selectStylesType}
                 placeholder="By type"
             />
+            
             <Select
+                className={css.locationSelect}
                 options={locationOptions}
                 value={selectedLocation}
                 onChange={setSelectedLocation}
@@ -174,63 +174,41 @@ export default function Filters({ onSearch, onFilterChange }) {
                     DropdownIndicator
                 }}
             />
+            
             <div className={css.radioContainer}>
-                <label className={css.radioLabel}>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="cheap"
-                        checked={sortBy === 'cheap'}
-                        onChange={(e) => handleSortChange(e.target.value)}
-                        className={css.radioInput}
-                    />
-                    <span className={css.radioText}>cheap</span>
-                </label>
+                {['Cheap', 'Expensive', 'Popular', 'Unpopular'].map((value) => (
+                    <label
+                        key={value}
+                        className={`${css.radioLabel} ${sortBy === value ? css.radioLabelActive : ''}`}
+                    >
+                        <input
+                            type="radio"
+                            name="sort"
+                            value={value}
+                            checked={sortBy === value}
+                            onChange={() => setSortBy(sortBy === value ? '' : value)}
+                            className={css.radioInput}
+                        />
+                        <span className={css.radioText}>
+                            {value}
+                            {sortBy === value && (
+                                <svg width="18" height="18">
+                                    <use xlinkHref="/sprite.svg#icon-cross"></use>
+                                </svg>
+                            )}
+                        </span>
+                    </label>
+                ))}
 
-                <label className={css.radioLabel}>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="expensive"
-                        checked={sortBy === 'expensive'}
-                        onChange={(e) => handleSortChange(e.target.value)}
-                        className={css.radioInput}
-                    />
-                    <span className={css.radioText}>expensive</span>
-                </label>
-
-                <label className={css.radioLabel}>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="popular"
-                        checked={sortBy === 'popular'}
-                        onChange={(e) => handleSortChange(e.target.value)}
-                        className={css.radioInput}
-                    />
-                    <span className={css.radioText}>popular</span>
-                </label>
-
-                <label className={css.radioLabel}>
-                    <input
-                        type="radio"
-                        name="sort"
-                        value="unpopular"
-                        checked={sortBy === 'unpopular'}
-                        onChange={(e) => handleSortChange(e.target.value)}
-                        className={css.radioInput}
-                    />
-                    <span className={css.radioText}>unpopular</span>
-                </label>
+                <button
+                    type="button"
+                    onClick={handleReset}
+                    className={css.resetButton}
+                >
+                    Reset
+                </button>
             </div>
 
-            <button 
-                type="button" 
-                onClick={handleReset}
-                className={css.resetButton}
-            >
-                Reset
-            </button>
         </div>
-    );
+    );  
 }

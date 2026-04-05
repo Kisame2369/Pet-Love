@@ -1,0 +1,669 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+.page {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+}
+
+.heroImage {
+  width: 100%;
+  height: 213px;
+  border-radius: var(--radius-img);
+  overflow: hidden;
+  margin-bottom: 38px;
+  background: var(--color-primary);
+}
+
+.heroImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark);
+  margin-bottom: 24px;
+  text-align: left;
+  padding: 0 17px;
+}
+
+.stepLabel {
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  padding: 0 6px;
+  border-radius: var(--radius-img);
+}
+
+.genderSection {
+  display: flex;
+  justify-content: left;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0 17px;
+}
+
+.genderBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.genderIcon {
+  width: 20px;
+  height: 20px;
+  transition: color 0.3s ease;
+}
+
+.genderBtn:first-child {
+  background-color: rgba(244, 63, 94, 0.1);
+  color: var(--color-female);
+}
+
+.genderBtn:first-child:hover {
+  background-color: var(--color-female);
+  color: var(--color-white);
+  transform: scale(1.05);
+}
+
+.genderBtn:first-child.genderBtnActive {
+  background-color: var(--color-female);
+  color: var(--color-white);
+}
+
+.genderBtn:nth-child(2) {
+  background-color: rgba(84, 173, 255, 0.1);
+  color: var(--color-male);
+}
+
+.genderBtn:nth-child(2):hover {
+  background-color: var(--color-male);
+  color: var(--color-white);
+  transform: scale(1.05);
+}
+
+.genderBtn:nth-child(2).genderBtnActive {
+  background-color: var(--color-male);
+  color: var(--color-white);
+}
+
+.genderBtn:nth-child(3) {
+  background-color: rgba(246, 184, 61, 0.1);
+  color: var(--color-primary);
+}
+
+.genderBtn:nth-child(3):hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transform: scale(1.05);
+}
+
+.genderBtn:nth-child(3).genderBtnActive {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.avatarSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.avatarWrapper {
+  width: 68px;
+  height: 68px;
+  min-width: 68px;
+  min-height: 68px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: rgba(246, 184, 61, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pawIcon {
+  width: 34px;
+  height: 34px;
+  color: var(--color-primary);
+}
+
+.imageUploadWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.imageUploadWrapper .input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.uploadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  width: auto;
+  min-width: fit-content;
+  background-color: rgba(246, 184, 61, 0.1);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.uploadBtn:hover {
+  background-color: rgba(246, 184, 61, 0.2);
+}
+
+.uploadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+.input::placeholder {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.input:disabled {
+  background-color: rgba(38, 38, 38, 0.05);
+  cursor: not-allowed;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.dateInputWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.dateInput {
+  width: 100%;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px 40px 12px 16px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.dateInput:focus {
+  border-color: var(--color-primary);
+}
+
+.dateInput::placeholder {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.calendarIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+  pointer-events: none;
+}
+
+.customSelectWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.customSelectButton {
+  width: 100%;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px 40px 12px 16px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  background-color: var(--color-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.customSelectButton:hover {
+  border-color: var(--color-primary);
+}
+
+.customSelectButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.placeholderText {
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.selectedText {
+  color: var(--color-dark);
+}
+
+.dropdownArrow {
+  width: 12px;
+  height: 8px;
+  color: rgba(38, 38, 38, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.dropdownArrowOpen {
+  transform: rotate(180deg);
+}
+
+.customSelectDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 16px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.customSelectOption {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  font-family: var(--font-family);
+  color: rgba(38, 38, 38, 0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.customSelectOption:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.customSelectOptionActive {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.customSelectOption:first-child {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.customSelectOption:last-child {
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.customSelectDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.customSelectDropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.customSelectDropdown::-webkit-scrollbar-thumb {
+  background: rgba(38, 38, 38, 0.2);
+  border-radius: 3px;
+}
+
+.customSelectDropdown::-webkit-scrollbar-thumb:hover {
+  background: rgba(38, 38, 38, 0.3);
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.backBtn {
+  flex: 0 0 auto;
+  min-width: 100px;
+  background-color: transparent;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-dark);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.backBtn:hover {
+  background-color: rgba(38, 38, 38, 0.05);
+}
+
+.backBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitBtn {
+  flex: 0 0 auto;
+  min-width: 120px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 30px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.submitBtn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:global(.react-datepicker-popper) {
+  left: 50% !important;
+  top: 70% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed !important;
+}
+
+:global(.react-datepicker) {
+  width: 290px !important;
+  font-size: 0.9rem !important;
+  border: 1px solid var(--color-primary) !important;
+  border-radius: 16px !important;
+  font-family: var(--font-family) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 8px;
+}
+
+:global(.react-datepicker__header) {
+  background-color: #fff !important;
+  border-bottom: none !important;
+  padding: 15px 10px 5px 15px !important;
+}
+
+:global(.react-datepicker__day--selected) {
+  background-color: var(--color-primary) !important;
+  border-radius: 50% !important;
+  color: var(--color-white) !important;
+}
+
+:global(.react-datepicker__day:hover) {
+  background-color: rgba(246, 184, 61, 0.1) !important;
+  border-radius: 50% !important;
+}
+
+:global(.react-datepicker__day--today) {
+  border: 1px solid var(--color-primary) !important;
+  border-radius: 50%;
+  color: var(--color-dark);
+}
+
+:global(.react-datepicker__current-month) {
+  text-align: left !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--color-dark) !important;
+  margin-bottom: 10px !important;
+  padding-left: 5px !important;
+}
+
+:global(.react-datepicker__navigation) {
+  top: 18px !important;
+}
+
+:global(.react-datepicker__navigation--previous) {
+  right: 45px !important;
+  left: auto !important;
+}
+
+:global(.react-datepicker__navigation--next) {
+  right: 10px !important;
+  left: auto !important;
+}
+
+:global(.react-datepicker__day-names) {
+  margin-top: 10px !important;
+}
+
+@media screen and (min-width: 768px) {
+  .page {
+    padding: 40px;
+  }
+
+  .heroImage {
+    width: 704px;
+    height: 248px;
+    border-radius: 30px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .heroImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .form {
+    width: 704px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 40px 120px;
+  }
+
+  .title {
+    font-size: 32px;
+    padding: 0;
+  }
+
+  .stepLabel {
+    font-size: 16px;
+  }
+
+  .genderSection {
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .genderBtn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .genderIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .avatarWrapper {
+    width: 86px;
+    height: 86px;
+    min-width: 86px;
+    min-height: 86px;
+  }
+
+  .avatarSection {
+    margin-bottom: 12px;
+  }
+
+  .pawIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .input,
+  .dateInput,
+  .customSelectButton {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+
+  .dateInput {
+    padding-right: 50px;
+  }
+
+  .customSelectButton {
+    padding-right: 50px;
+  }
+
+  .uploadBtn {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+
+  .buttonRow {
+    justify-content: flex-end;
+    gap: 8px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-bottom: 0;
+  }
+
+  .backBtn,
+  .submitBtn {
+    font-size: 16px;
+    padding: 12px 24px;
+    flex: 0 0 auto;
+    min-width: 120px;
+  }
+
+  .customSelectOption {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .pageContainer {
+    padding: 0 60px;
+  }
+
+  .page {
+    max-width: 1280px;
+    padding: 32px 0;
+  }
+
+  .content {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .heroImage {
+    width: 592px;
+    height: 654px;
+    margin-bottom: 0;
+    position: static;
+    left: auto;
+    transform: none;
+    flex-shrink: 0;
+  }
+
+  .form {
+    width: 592px;
+    height: 654px;
+    position: static;
+    left: auto;
+    transform: none;
+    padding: 40px 80px;
+    flex-shrink: 0;
+  }
+
+  .title {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .genderBtn:hover {
+    transform: scale(1.1);
+  }
+
+  .buttonRow {
+    max-width: 348px;
+  }
+}

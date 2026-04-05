@@ -1,56 +1,66 @@
-*,
-*::before,
-*::after {
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --color-primary: #f6b83d;
+  --color-primary-hover: #f9cc75;
+  --color-primary-light: #fff4df;
+  --color-dark: #262626;
+  --color-border-light: rgba(38, 38, 38, 0.15);
+  --color-white: #ffffff;
+  --background-color: #f9f9f9;
+  --color-primary-dark: #e69f2c;
+  --color-primary-medium: #fbe7c1;
+  --color-danger-light: #fff4f4;
+  --color-danger-lighter: #ffe0e0;
+
+  --color-error: #ef4444;
+  --color-success: #10b981;
+  --color-border: #e5e7eb;
+  --color-border-focus: #f6b83d;
+  --color-gray: #888888;
+
+  --color-female: #f43f5e;
+  --color-male: #3b82f6;
+
+  --font-family: "Manrope", sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --radius-sm: 15px;
+  --radius-md: 20px;
+  --radius-img: 30px;
+  --radius-full: 40px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-8: 32px;
+
+  --transition: 0.5s ease-in-out;
+  --shadow-soft: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+* {
   box-sizing: border-box;
 }
 
-:root {
-  --black: #262626;
-  --white: #FFFFFF;
-  --yellow: #FFF4DF;
-  --dark-yellow: #F6B83D;
-  --red: #EF2447;
-  --green: #08AA83;
-}
-
+html,
 body {
-  font-family: Manrope, sans-serif;
-  margin: 0;
-  padding: 0px 20px;
-  background-color: #F9F9F9;
+  overflow-x: hidden;
+  background-color: var(--background-color);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
+body.menu-open {
+  overflow: hidden;
 }
 
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: currentColor;
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
+html:has(body.menu-open) {
+  overflow: hidden;
 }

@@ -1,31 +1,37 @@
-import { useEffect } from 'react';
-import css from './FriendsPage.module.css';
-import Title from '../../components/Title/Title.jsx';
-import FriendsItem from '../../components/FriendsItem/FriendsItem.jsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectFriends } from '../../redux/friends/selector.js';
-import { fetchFriends } from '../../redux/friends/operations.js';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFriends } from "../../redux/friends/friendsOperations";
+import Loader from "../../components/Loader/Loader";
+import Header from "../../components/Header/Header";
+import FriendsItem from "../../components/FriendsItem/FriendsItem";
+import styles from "./FriendsPage.module.css";
 
 export default function FriendsPage() {
-    const dispatch = useDispatch();
-    const friends = useSelector(selectFriends);
+  const dispatch = useDispatch();
+  const { items, isLoading } = useSelector((state) => state.friends);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        dispatch(fetchFriends());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchFriends());
+  }, [dispatch]);
 
-    return (
-        <>
-            <Title title="Our Friends" />    
-            <div className={css.friendsPage}>
-                <ul className={css.friendsList}>
-                    {friends.map((item) => (
-                        <li key={item._id} className={css.friendsListItem}>
-                            <FriendsItem item={item} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </>
-    );
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.page}>
+        <Header variant="light" authenticated={isAuthenticated} />
+        <main className={styles.main}>
+          <h1 className={styles.title}>Our friends</h1>
+          {isLoading && <Loader />}
+          {!isLoading && (
+            <ul className={styles.list}>
+              {items.map((item, index) => (
+                <FriendsItem key={item._id} item={item} index={index} />
+              ))}
+            </ul>
+          )}
+        </main>
+      </div>
+
+    </div>
+  );
 }

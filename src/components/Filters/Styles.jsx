@@ -175,8 +175,8 @@ export const selectStylesType = {
 export const selectStylesLocation = {
 control: (provided, state) => ({
     ...provided,
-    backgroundColor: 'transparent',
-    border: `1px solid ${state.isFocused ? 'var(--dark-yellow)' : '#26262626'}`,
+    backgroundColor: 'var(--white)',
+    border: `1px solid ${state.isFocused ? 'var(--dark-yellow)' : 'none'}`,
     borderRadius: '30px',
     height: '42px',
     width: '100%',
@@ -191,7 +191,7 @@ control: (provided, state) => ({
     color: 'var(--black)',
     minHeight: '42px',
     '&:hover': {
-        borderColor: state.isFocused ? 'var(--dark-yellow)' : '#26262626',
+        borderColor: state.isFocused ? 'var(--dark-yellow)' : 'none',
     },
 }),
     valueContainer: (provided) => ({
@@ -293,7 +293,7 @@ control: (provided, state) => ({
     }),
     placeholder: (provided) => ({
         ...provided,
-        color: '#26262680',
+        color: 'var(--black)',
         fontFamily: 'Manrope',
         fontWeight: 500,
         fontSize: '16px',

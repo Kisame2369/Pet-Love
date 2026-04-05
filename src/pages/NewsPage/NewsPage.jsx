@@ -1,56 +1,69 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNews } from "../../redux/news/operations.js";
-import { selectNews, selectNewsPage, selectNewsTotalPages } from "../../redux/news/selector.js";
-import NewsItem from "../../components/NewsItem/NewsItem.jsx";
-import css from "./NewsPage.module.css";
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
-import Title from "../../components/Title/Title.jsx";
-import Pagination from "../../components/Pagination/Pagination.jsx";
-import { setNewsPage } from "../../redux/news/slice.js";
+import { fetchNews } from "../../redux/news/newsOperations";
+import { setPage } from "../../redux/news/newsSlice";
+import Header from "../../components/Header/Header";
+import Loader from "../../components/Loader/Loader";
+import NewsItem from "../../components/NewsItem/NewsItem";
+import Pagination from "../../components/Pagination/Pagination";
+import SearchField from "../../components/SearchField/SearchField";
+import styles from "./NewsPage.module.css";
 
 export default function NewsPage() {
-    
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const { items, page, totalPages, isLoading } = useSelector(
+    (state) => state.news,
+  );
+  const [keyword, setKeyword] = useState("");
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-    const newsItems = useSelector(selectNews);
-    const page = useSelector(selectNewsPage);
-    const totalPages = useSelector(selectNewsTotalPages);
-    
-    const [keyword, setKeyword] = useState("");
-    
-    useEffect(() => {
-        dispatch(fetchNews({ keyword, page, limit: 6 }));
-    }, [dispatch, keyword, page]);
+  useEffect(() => {
+    dispatch(fetchNews({ page, keyword }));
+  }, [dispatch, page, keyword]);
 
-    const handleSearch = (searchKeyword) => {
-        setKeyword(searchKeyword);
-        dispatch(setNewsPage(1)); 
-    };
+  const handleSearch = (value) => {
+    setKeyword(value);
+    dispatch(setPage(1));
+  };
 
-    const handlePageChange = (newPage) => {
-        dispatch(setNewsPage(newPage));
-    };
+  const handlePageChange = (newPage) => {
+    dispatch(setPage(newPage));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-    return (
-        <>
-        <Title title="News" />    
-        <SearchBar onSearch={handleSearch}/>
-        <div className={css.newsPage}>
-            <ul className={css.newsList}>
-                {newsItems.map((item) => (
-                    <li key={item.id} className={css.newsListItem}>
-                        <NewsItem item={item} />
-                    </li>
+  return (
+    <div className={styles.pageContainer}>
+      <div className={styles.page}>
+        <Header variant="light" authenticated={isAuthenticated} />
+
+        <main className={styles.main}>
+          <div className={styles.titleRow}>
+            <h1 className={styles.title}>News</h1>
+            <SearchField onSearch={handleSearch} />
+          </div>
+
+          {isLoading && <Loader />}
+
+          {!isLoading && (
+            <>
+              <ul className={styles.list}>
+                {items.map((item) => (
+                  <NewsItem key={item._id} item={item} />
                 ))}
-            </ul>
-            </div>
-            <Pagination 
-                page={page} 
-                totalPages={totalPages}
-                setPage={handlePageChange}
-            />
-        </>
-    );
+              </ul>
+
+              {totalPages > 1 && (
+                <Pagination
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </>
+          )}
+        </main>
+      </div>
+
+    </div>
+  );
 }

@@ -1,0 +1,341 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.imgBlock {
+  background: var(--color-primary);
+  width: 100%;
+  height: 240px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+}
+
+.dogImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: slideInDown 1s ease-out 0.2s both;
+}
+
+.petCard {
+  display: none;
+}
+
+.formBlock {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  border-radius: 60px;
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 100%;
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark);
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+.subtitle {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-dark);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.switchText {
+  text-align: center;
+  margin-top: 24px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray);
+}
+
+.switchLink {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 32px;
+  }
+
+  .mainContent {
+    padding: 32px 0;
+  }
+
+  .imgBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    height: 300px;
+    position: relative;
+    border-radius: 60px;
+  }
+
+  .petCard {
+    display: flex;
+    flex-direction: column;
+    position: static;
+    transform: none;
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    flex: 1;
+    max-width: 42%;
+    z-index: 2;
+    padding: 16px;
+    margin-top: 15%;
+    margin-left: 32px;
+    animation: fadeInCard 0.6s ease-out 0.8s both;
+  }
+
+  .dogImg {
+    position: absolute;
+    right: 75px;
+    bottom: 0;
+    width: auto;
+    height: 110%;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .petCardContent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .petCardHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .petInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .avatarWrapper {
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .avatarImg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .petName {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .petBirthday {
+    font-family: var(--font-family);
+    font-size: 12px;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  .date {
+    color: var(--color-dark);
+  }
+
+  .petDesc {
+    font-family: var(--font-family);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--color-dark);
+  }
+
+  .formWrap {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+
+  .formBlock {
+    flex: 0;
+    margin-top: 87px;
+  }
+
+  .title {
+    font-size: 54px;
+  }
+
+  .subtitle {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    flex-direction: row;
+    padding: 32px 64px;
+    gap: 32px;
+    align-items: stretch;
+  }
+
+  .imgBlock {
+    flex: 1;
+    height: auto;
+    min-height: 600px;
+    border-radius: 60px;
+    background: var(--color-primary);
+  }
+
+  .dogImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+    right: 0;
+  }
+
+  .petCard {
+    display: block;
+    position: absolute;
+    bottom: 50px;
+    left: 61px;
+    background: var(--color-white);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    max-width: 294px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .petCardHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .avatarWrapper {
+    width: 60px;
+    height: 60px;
+    background: var(--color-primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .avatarImg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .petName {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+  }
+
+  .petBirthday {
+    font-family: var(--font-family);
+    font-size: 12px;
+    color: var(--color-gray);
+  }
+
+  .date {
+    color: var(--color-dark);
+  }
+
+  .petDesc {
+    font-family: var(--font-family);
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--color-dark);
+    margin: 0;
+  }
+
+  .formBlock {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+  }
+
+  .formWrap {
+    max-width: 424px;
+  }
+
+  .title {
+    font-size: 54px;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

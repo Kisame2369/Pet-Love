@@ -1,0 +1,57 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 8px 16px;
+  background: var(--color-white);
+  width: 100%;
+  max-width: 240px;
+}
+
+.form:focus-within {
+  border-color: var(--color-primary);
+}
+
+.input {
+  flex: 1;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  color: var(--color-dark);
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--color-gray);
+}
+
+.clearBtn,
+.searchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-gray);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition);
+}
+
+.clearBtn:hover,
+.searchBtn:hover {
+  color: var(--color-primary);
+}
+
+.clearBtn {
+  width: 16px;
+  height: 16px;
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+}

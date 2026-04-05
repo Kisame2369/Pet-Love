@@ -1,4 +1,3 @@
-// src/redux/cities/operations.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../API/api.js";
 

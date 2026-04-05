@@ -1,0 +1,267 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(38, 38, 38, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: var(--space-5);
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  position: relative;
+  background-color: var(--color-white);
+  border-radius: var(--radius-img);
+  padding: 40px var(--space-5);
+  width: 100%;
+  max-width: 335px;
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-family);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform var(--transition);
+}
+
+.closeBtn:hover {
+  transform: scale(1.1);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-dark);
+  margin-bottom: var(--space-8);
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  color: #999;
+  font-size: 12px;
+  border-radius: 50%;
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.avatarWrapper {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  background-color: var(--background-color);
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.uploadActions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.urlInputWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.urlInput {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-img);
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--color-dark);
+  outline: none;
+  background-color: transparent;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.uploadBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--color-primary-light);
+  border: none;
+  border-radius: var(--radius-img);
+  padding: 10px 10px;
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-dark);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.uploadBtn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.uploadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.uploadIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-img);
+  padding: 12px var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.input:focus {
+  border-color: var(--color-border-focus);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.saveBtn {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-img);
+  padding: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: background-color var(--transition);
+}
+
+.saveBtn:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    max-width: 480px;
+    padding: var(--space-8) 50px;
+    border-radius: var(--radius-full);
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .avatarWrapper {
+    width: 86px;
+    height: 86px;
+    min-width: 86px;
+    min-height: 86px;
+  }
+
+  .avatarSection {
+    gap: 12px;
+  }
+
+  .uploadBtn {
+    padding: 10px 20px;
+  }
+
+  .saveBtn {
+    font-size: var(--font-size-base);
+    margin-bottom: 50px;
+  }
+
+  .form {
+    gap: 14px;
+  }
+
+  .closeBtn {
+    top: 20px;
+    right: 20px;
+  }
+}
+
+.placeholderIcon {
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary);
+}
+
+.urlInputWrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .saveBtn {
+    margin-top: 40px;
+  }
+}

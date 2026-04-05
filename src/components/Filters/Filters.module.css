@@ -1,0 +1,82 @@
+.filters{
+    background-color: var(--yellow);
+    padding: 20px;
+    border-radius: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.select{
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.locationSelect {
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.radioInput {
+    display: none;
+}
+
+.radioContainer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    border-top: 1px solid #2626261A;
+    padding-top: 20px;
+}
+
+.radioLabel,
+.radioLabelActive {
+    display: flex;
+    padding: 12px;
+    border-radius: 30px;
+    background-color: var(--white);
+    height: 42px;
+        
+}
+
+.radioText{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    display: flex;
+    gap: 6px;
+    fill: transparent;
+    stroke: var(--white);
+}
+
+.radioInput:checked+.radioText {
+    color: #fff;
+}
+
+.radioLabelActive {
+    background-color: var(--dark-yellow);
+}
+
+.resetButton{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    background-color: var(--white);
+    height: 42px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    color: var(--black);
+}
+
+.searchInput::placeholder {
+    color: var(--black);
+    opacity: 1;
+}
